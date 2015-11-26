@@ -3,21 +3,42 @@
 /**
  * WeFoster Updater Fallback Class
  *
- * Provides fallback logic when the WeFoster Dashboard plugin is not
- * active. Require this class to register plugins and themes and display
- * a notice to install or activate the dashboard plugin which handles
- * the updating.
+ * This class provides fallback logic when the WeFoster Dashboard plugin is
+ * not active. Require this class to register plugins and themes, and display
+ * a notice to install or activate the dashboard plugin which will handle the
+ * actual updating.
  *
- * Example:
+ * NOTE: Adding your product should happen BEFORE 'init'! So use 'plugins_loaded'
+ * for plugins and 'after_setup_theme' for themes.
+ *
+ * Example for a PLUGIN:
  *
  * <?php
- *    // Load fallback file when without WeFoster Dashboard
- *    if ( ! function_exists( 'wefoster' ) ) {
- *        require_once( '{...}/class-wefoster-updater-fallback.php' );
- *    }
+ *    function wefoster_update_my_plugin() {
+ *        // Load fallback file when without WeFoster Dashboard
+ *        if ( ! function_exists( 'wefoster' ) ) {
+ *             require_once( '{...}/class-wefoster-updater-fallback.php' );
+ *        }
  *
- *    // Add plugin or theme to the updatable queue
- *    wefoster_updater()->add_plugin|theme( ... );
+ *        // Add plugin to the updatable queue
+ *        wefoster_updater()->add_plugin( __FILE__ );
+ *    }
+ *    add_function( 'plugins_loaded', 'wefoster_update_my_plugin' );
+ * ?>
+ *
+ * Example for a THEME:
+ *
+ * <?php
+ *    function wefoster_update_my_theme() {
+ *        // Load fallback file when without WeFoster Dashboard
+ *        if ( ! function_exists( 'wefoster' ) ) {
+ *             require_once( '{...}/class-wefoster-updater-fallback.php' );
+ *        }
+ *
+ *        // Add theme to the updatable queue
+ *        wefoster_updater()->add_theme( 'my-theme' );
+ *    }
+ *    add_function( 'after_setup_theme', 'wefoster_update_my_theme' );
  * ?>
  * 
  * @package WeFoster Plugin or Theme
