@@ -8,7 +8,7 @@
  * a notice to install or activate the dashboard plugin which will handle the
  * actual updating.
  *
- * NOTE: Adding your product should happen BEFORE 'init'! So use 'plugins_loaded'
+ * NOTE: Adding your product should happen BEFORE the 'init' hook! So use 'plugins_loaded'
  * for plugins and 'after_setup_theme' for themes.
  *
  * Example for a PLUGIN:
