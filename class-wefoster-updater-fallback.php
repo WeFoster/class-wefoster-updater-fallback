@@ -173,6 +173,9 @@ final class WeFoster_Updater_Fallback {
 			return new WP_Error( 'file_not_found', __( 'The plugin file could not be found.', 'wefoster' ) );
 		}
 
+		// Make sure we can use `get_plugin_data()`
+		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 		// Get the plugin data
 		$plugin = (object) get_plugin_data( $plugin_file );
 
