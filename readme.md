@@ -9,31 +9,31 @@ NOTE: Adding your product should happen BEFORE the `'init'` hook! So use `'plugi
 PLUGIN: Add your plugin to the updatable WeFoster queue
 ```
 <?php
-    function wefoster_update_my_plugin() {
-       // Load fallback file when without WeFoster Dashboard
-       if ( ! function_exists( 'wefoster' ) ) {
-            require_once( '{...}/class-wefoster-updater-fallback.php' );
-       }
+function wefoster_update_my_plugin() {
+   // Load fallback file when without WeFoster Dashboard
+   if ( ! function_exists( 'wefoster' ) ) {
+        require_once( '{...}/class-wefoster-updater-fallback.php' );
+   }
 
-       // Add Plugin
-       wefoster_updater()->add_plugin( __FILE__ );
-    }
-    add_function( 'plugins_loaded', 'wefoster_update_my_plugin' );
+   // Add Plugin
+   wefoster_updater()->add_plugin( __FILE__ );
+}
+add_action( 'plugins_loaded', 'wefoster_update_my_plugin' );
 ?>
 ```
 
 THEME: Add your theme to the updatable WeFoster queue
 ```
 <?php
-    function wefoster_update_my_theme() {
-       // Load fallback file when without WeFoster Dashboard
-       if ( ! function_exists( 'wefoster' ) ) {
-            require_once( '{...}/class-wefoster-updater-fallback.php' );
-       }
+function wefoster_update_my_theme() {
+   // Load fallback file when without WeFoster Dashboard
+   if ( ! function_exists( 'wefoster' ) ) {
+        require_once( '{...}/class-wefoster-updater-fallback.php' );
+   }
 
-       // Add Theme
-       wefoster_updater()->add_theme( 'my-theme' );
-    }
-    add_function( 'after_setup_theme', 'wefoster_update_my_theme' );
+   // Add Theme
+   wefoster_updater()->add_theme( 'my-theme' );
+}
+add_action( 'after_setup_theme', 'wefoster_update_my_theme' );
 ?>
 ```
