@@ -104,7 +104,7 @@ final class WeFoster_Updater_Fallback {
 	 * @since 1.0.0
 	 *
 	 * @uses WeFoster_Updater_Fallback::setup_actions()
-	 * @return The single class instance
+	 * @return WeFoster_Updater_Fallback The single class instance
 	 */
 	public static function instance() {
 		static $instance = null;
@@ -462,7 +462,7 @@ final class WeFoster_Updater_Fallback {
 	 * @return bool Display notices
 	 */
 	public function display_notice() {
-		$has_notices = (bool) $this->get_products_for_notices();
+		$has_notices     = (bool) $this->get_products_for_notices();
 		$is_display_page = is_admin() && ! in_array( get_current_screen()->id, array( 'update', 'update-network' ) );
 
 		return $has_notices && $is_display_page;
@@ -651,14 +651,14 @@ final class WeFoster_Updater_Fallback {
 			'download_link' => $repo . 'zipball/master',
 		);
 
-		$title = __( 'Plugin Install' );
-		$parent_file = 'plugins.php';
+		$title        = __( 'Plugin Install' );
+		$parent_file  = 'plugins.php';
 		$submenu_file = 'plugin-install.php';
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
 
 		$title = sprintf( __( 'Installing Plugin: %s' ), $api->name . ' ' . $api->version );
 		$nonce = 'install-plugin_' . $this->wfdb_base;
-		$url = 'update.php?action=install-wefoster-dashboard';
+		$url   = 'update.php?action=install-wefoster-dashboard';
 		if ( isset( $_GET['from'] ) ) {
 			$url .= '&from=' . urlencode( stripslashes( $_GET['from'] ) );
 		}
@@ -672,8 +672,8 @@ final class WeFoster_Updater_Fallback {
 		$upgrader->install( $api->download_link );
 
 		// Unhook filters
-		remove_filter( 'upgrader_post_install',           array( $this, 'upgrader_post_install'    ), 10, 3 );
-		remove_filter( 'install_plugin_complete_actions', array( $this, 'install_complete_actions' ), 10, 3 );
+		remove_filter( 'upgrader_post_install',           array( $this, 'upgrader_post_install'    ), 10 );
+		remove_filter( 'install_plugin_complete_actions', array( $this, 'install_complete_actions' ), 10 );
 
 		include( ABSPATH . 'wp-admin/admin-footer.php' );
 	}
@@ -695,6 +695,7 @@ final class WeFoster_Updater_Fallback {
 	 * @return bool Install response
 	 */
 	public function upgrader_post_install( $response, $hook_extra, $result ) {
+		/** @var $wp_filesystem WP_Filesystem_Base */
 		global $wp_filesystem;
 
 		// Bail when the response was invalid
@@ -760,7 +761,7 @@ final class WeFoster_Updater_Fallback {
  * @since 1.0.0
  *
  * @uses WeFoster_Updater_Fallback
- * @return The single class instance
+ * @return WeFoster_Updater_Fallback The single class instance
  */
 function wefoster_updater() {
 	return WeFoster_Updater_Fallback::instance();
